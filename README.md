@@ -21,21 +21,24 @@ PROLOGUE
 
 Building the OS
 ----------------
-* Put the below bash function and use it as go to help for building the OS
+* Run below bash function.
 ```
 function kc  
 {
-    echo '
-# Compile Kernel
-i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
-# Linker
-i686-elf-gcc -T linker.ld -o frosam.bin -ffreestanding -O2 -nostdlib boot.o kernel.o terminal.o -lgcc
-# Copy bin
-cp frosam.bin ../isodir/boot/
-# Grub
-grub-mkrescue -o ../frosam.iso ../isodir
-# Load
-qemu-system-i386 -cdrom ../frosam.iso
-'
+    # Go to frosam src
+    cd /home/ravikirn/frosam/src &&
+    # Compile Kernel
+    i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra &&
+    # Compile Terminal
+    i686-elf-gcc -c terminal.c -o terminal.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra &&
+    # Linker
+    i686-elf-gcc -T linker.ld -o frosam.bin -ffreestanding -O2 -nostdlib boot.o kernel.o terminal.o -lgcc &&
+    # Copy bin
+    cp frosam.bin ../isodir/boot/ &&
+    # Grub
+    grub-mkrescue -o ../frosam.iso ../isodir &&
+    # Load
+    qemu-system-i386 -cdrom ../frosam.iso
 }
 ```
+

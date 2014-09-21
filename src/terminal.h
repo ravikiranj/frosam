@@ -28,7 +28,7 @@ uint16_t make_vgaentry(char c, uint8_t color);
 
 size_t strlen(const char* str);
 
-void terminal_initialize();
+void terminal_init();
 
 void terminal_setcolor(uint8_t color);
 
@@ -37,4 +37,3 @@ void putcharAt(char c, uint8_t color, size_t x, size_t y);
 void putchar(char c);
 
 void puts(const char* data);
-

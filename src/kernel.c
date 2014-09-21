@@ -25,5 +25,5 @@ extern "C" /* Use C linkage for kernel_main. */
 void kernel_main()
 {
     terminal_init();
-    puts("Hello, kernel World again!");
+    puts("Hello, kernel World again!\nLet me see if this is a newline");
 }

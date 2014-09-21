@@ -61,14 +61,17 @@ void putcharAt(char c, uint8_t color, size_t x, size_t y)
 
 void putchar(char c)
 {
+    if (c == '\n')
+    {
+        terminal_row = (terminal_row + 1) % VGA_HEIGHT;
+        terminal_column = 0;
+        return;
+    }
     putcharAt(c, terminal_color, terminal_column, terminal_row);
     if (++terminal_column == VGA_WIDTH)
     {
         terminal_column = 0;
-        if (++terminal_row == VGA_HEIGHT)
-        {
-            terminal_row = 0;
-        }
+        terminal_row = (terminal_row + 1) % VGA_HEIGHT;
     }
 }
 
