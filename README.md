@@ -18,3 +18,24 @@ PROLOGUE
    # gcc
    ../gcc-x.y.z/configure --target=$TARGET --program-prefix="$TARGET-" --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
    ```
+
+Building the OS
+----------------
+* Put the below bash function and use it as go to help for building the OS
+```
+function kc  
+{
+    echo '
+# Compile Kernel
+i686-elf-gcc -c kernel.c -o kernel.o -std=gnu99 -ffreestanding -O2 -Wall -Wextra
+# Linker
+i686-elf-gcc -T linker.ld -o frosam.bin -ffreestanding -O2 -nostdlib boot.o kernel.o terminal.o -lgcc
+# Copy bin
+cp frosam.bin ../isodir/boot/
+# Grub
+grub-mkrescue -o ../frosam.iso ../isodir
+# Load
+qemu-system-i386 -cdrom ../frosam.iso
+'
+}
+```
